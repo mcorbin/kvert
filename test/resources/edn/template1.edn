@@ -1,0 +1,5 @@
+[{:foo "bar"
+  :labels #include "labels.edn"
+  :bar #ymlgen/var :var1
+  :join #join ["prefix-" #ymlgen/var :var3]
+  }]

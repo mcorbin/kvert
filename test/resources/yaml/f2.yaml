@@ -1,0 +1,7 @@
+---
+foo: bar
+---
+test:
+  bar: baz
+  bool: true
+  int: 3
