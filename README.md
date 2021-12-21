@@ -135,7 +135,7 @@ We configured in this example the profile into the `config.edn` file. You can al
 
 [Aero](https://github.com/juxt/aero), the library used by `ymlgen` to parse EDN files supports tons of readers out of the box. You can find them in the library [documentation](https://github.com/juxt/aero#tag-literals).
 
-For example, the `#include` reader allows you to include an EDN file into another one:
+For example, the `#include` reader allows you to include an EDN file into another one. Let's create a file named `example.edn` containing:
 
 ```clojure
 {:apiVersion "v1"
@@ -150,7 +150,7 @@ For example, the `#include` reader allows you to include an EDN file into anothe
  :environment "prod"}
 ```
 
-The output if `ymlgen` will be
+The output of `ymlgen --template example.edn` will be:
 
 ```yaml
 ---
@@ -162,7 +162,7 @@ metadata:
     environment: prod
 ```
 
-Another cool one is `#ref`:
+Another cool one is `#ref`, let's modify our `example.edn` with:
 
 ```clojure
 {:apiVersion "v1"
@@ -171,7 +171,7 @@ Another cool one is `#ref`:
             :labels {:name #ref [:metadata :name]}}}
 ```
 
-This content will produce:
+This file will produce using `ymlgen --template example.edn`:
 
 ```yaml
 ---
