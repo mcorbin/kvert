@@ -1,4 +1,4 @@
-(defproject ymlgen "0.1.0-SNAPSHOT"
+(defproject ymlgen "0.1.0"
   :description "generate yaml files from edn"
   :url "https://github.com/mcorbin/ymlgen"
   :license {:name "EPL-2.0"

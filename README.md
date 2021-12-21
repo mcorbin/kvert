@@ -4,7 +4,7 @@
 
 It leverages the [EDN](https://github.com/edn-format/edn) format and the [Aero](https://github.com/juxt/aero) to do so.
 
-Why use ymlgen ? It's simple (< 170 lines of code including namespaces declarations, line breaks...), powerful and extensible.
+Why `ymlgen` ? It's simple (< 170 lines of code including namespaces declarations, line breaks...), powerful and extensible.
 
 ## Install
 
@@ -150,7 +150,7 @@ For example, the `#include` reader allows you to include an EDN file into anothe
  :environment "prod"}
 ```
 
-The output of `ymlgen --template example.edn` will be:
+The output of `ymlgen yaml --template example.edn` will be:
 
 ```yaml
 ---
@@ -171,7 +171,7 @@ Another cool one is `#ref`, let's modify our `example.edn` with:
             :labels {:name #ref [:metadata :name]}}}
 ```
 
-This file will produce using `ymlgen --template example.edn`:
+This file will produce using `ymlgen yaml --template example.edn`:
 
 ```yaml
 ---
@@ -186,3 +186,4 @@ metadata:
 As you can see, ref allows you to reference another part of your edn file.
 
 Don't hesitate to check the Aero [documentation](https://github.com/juxt/aero#tag-literals) for more examples !
+

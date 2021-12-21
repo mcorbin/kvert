@@ -11,7 +11,6 @@
                                     :allow-recursive-keys allow-recursive-keys
                                     :allow-duplicate-keys allow-duplicate-keys)
                     string)]
-
     (yaml/decode v
                  keywords)))
 
