@@ -4,7 +4,7 @@
 
 It leverages the [EDN](https://github.com/edn-format/edn) format and the [Aero](https://github.com/juxt/aero) to do so.
 
-Why use ymlgen ? It's simple (< 170 LoC including namespaces declarations, line breaks...), powerful and extensible.
+Why use ymlgen ? It's simple (< 170 lines of code including namespaces declarations, line breaks...), powerful and extensible.
 
 ## Install
 
