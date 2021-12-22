@@ -23,4 +23,9 @@
               "bar: test\n"
               "join: prefix-1\n")
          (yaml/gen-yaml {:template-path (.getPath (io/resource "edn/template1.edn"))
+                         :config-path (.getPath (io/resource "edn/config2.edn"))})))
+  (is (= (str "---\nfoo:\n"
+              "  foo: test\n"
+              "  bar: t2\n")
+         (yaml/gen-yaml {:template-path (.getPath (io/resource "edn/template2.edn"))
                          :config-path (.getPath (io/resource "edn/config2.edn"))}))))
