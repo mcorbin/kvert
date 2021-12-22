@@ -141,7 +141,9 @@ We configured in this example the profile into the `config.edn` file. You can al
 
 ## More readers
 
-[Aero](https://github.com/juxt/aero), the library used by `ymlgen` to parse EDN files supports tons of readers out of the box. You can find them in the library [documentation](https://github.com/juxt/aero#tag-literals).
+[Aero](https://github.com/juxt/aero), the library used by `ymlgen` to parse EDN files supports tons of readers out of the box. You can find them in the library [documentation](https://github.com/juxt/aero#tag-literals). Here are some interesting ones:
+
+**#include**
 
 For example, the `#include` reader allows you to include an EDN file into another one. Let's create a file named `example.edn` containing:
 
@@ -169,6 +171,22 @@ metadata:
     foo: bar
     environment: prod
 ```
+
+**#ymlgen/include**
+
+THe `#ymlgen/include` reader works exactly like `#include` but allows you to pass additional variables and configure another profile to the included file:
+
+```clojure
+{:apiVersion "v1"
+ :kind "Pod"
+ :metadata {:labels #ymlgen/include {:path "labels.edn"
+                                     :variables {:foo "bar"}
+                                     :profile :prod}}}
+ ```
+
+In this example, the content of the `labels.edn` file will be included. Additional variables (`:foo` in this example) are also provided and the profile is also overrided.
+
+**#ref**
 
 Another cool one is `#ref`, let's modify our `example.edn` with:
 
