@@ -17,7 +17,7 @@ You can alternatively download the `jar` file and then run it with `java -jar ym
 
 A docker image is also provided. Note that this image uses `java` as well so executing it is a bit slower than the static binary built with GraalVM.
 
-All example described below can be done using the Docker image by executing in the directory containing your templates `docker run -v $(pwd):/data mcorbin/ymlgen:v0.1.0 <command>`. The files will be availables in `/data`.
+All example described below can be done using the Docker image by executing in the directory containing your templates `docker run -v $(pwd):/data mcorbin/ymlgen:v0.1.0 <command>`. The files will be availables in `/data`. Example: `docker run -v $(pwd):/data mcorbin/ymlgen:v0.1.0 yaml -t /data/example.edn`.
 
 ## Quick start
 

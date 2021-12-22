@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 export GRAALVM_HOME=/opt/graalvm-ce-java17-21.3.0/
 export PATH=$GRAALVM_HOME/bin:$PATH
 
@@ -18,3 +20,5 @@ native-image --report-unsupported-elements-at-runtime \
              --no-server \
              -jar ./target/uberjar/ymlgen-*-standalone.jar \
              -H:Name=./target/ymlgen-${tag}
+git push --tags
+git push
