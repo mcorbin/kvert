@@ -32,9 +32,9 @@ Once `ymlgen` installed, you are ready to use it. Let's for example generate a y
  :metadata {:name "dnsutils"
             :namespace "default"}
  :spec {:containers [{:name "dnsutils"
-                     :image "k8s.gcr.io/e2e-test-images/jessie-dnsutils:1.3"
-                     :command ["sleep" "3600"]
-                     :imagePullPolicy "ifNotPresent"}]
+                      :image "k8s.gcr.io/e2e-test-images/jessie-dnsutils:1.3"
+                      :command ["sleep" "3600"]
+                      :imagePullPolicy "ifNotPresent"}]
         :restartPolicy "Always"}}
 ```
 
