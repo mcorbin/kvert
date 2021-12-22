@@ -15,4 +15,4 @@ native-image --report-unsupported-elements-at-runtime \
              --initialize-at-build-time \
              --no-server \
              -jar ./target/uberjar/ymlgen-*-standalone.jar \
-             -H:Name=./target/ymlgen
+             -H:Name=./target/ymlgen-${tag}

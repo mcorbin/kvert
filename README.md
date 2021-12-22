@@ -2,13 +2,15 @@
 
 `ymlgen` lets you generate yaml files in a declarative way. You can for example use it to manage your Kubernetes manifests.
 
-It leverages the [EDN](https://github.com/edn-format/edn) format and the [Aero](https://github.com/juxt/aero) to do so.
+It supports including parts of definitions into other ones, variables, generating files with a different shape based on a `profile`, reading values from environment variables... All of this allows you to manage your YAML files in an effective way.
 
-Why `ymlgen` ? It's simple (< 170 lines of code including namespaces declarations, line breaks...), powerful and extensible.
+The tool leverages the [EDN](https://github.com/edn-format/edn) format and the [Aero](https://github.com/juxt/aero) library.
+
+Why `ymlgen` ? It's simple, powerful and extensible.
 
 ## Install
 
-For Linux (amd64), download the `ymlgen` binary and put it in your PATH. This binary is built using [GraalVM](https://www.graalvm.org/) so more targets may be added soon.
+For Linux (x86-64), download the `ymlgen` binary and put it in your PATH. This binary is built using [GraalVM](https://www.graalvm.org/) so more targets may be added soon (help welcome).
 
 You can alternatively download the `jar` file and then run it with `java -jar ymlgen.jar` (Java 17 needed).
 
@@ -187,3 +189,39 @@ As you can see, ref allows you to reference another part of your edn file.
 
 Don't hesitate to check the Aero [documentation](https://github.com/juxt/aero#tag-literals) for more examples !
 
+## Generate EDN from YAML
+
+You can use `ymlgen` to convert an existing YAML file to EDN. This can help you to get started with the tool by using existing YAML files. An example with this file named `pod.yml`:
+
+```yaml
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dnsutils
+  namespace: default
+spec:
+  containers:
+  - name: dnsutils
+    image: k8s.gcr.io/e2e-test-images/jessie-dnsutils:1.3
+    command:
+    - sleep
+    - '3600'
+    imagePullPolicy: ifNotPresent
+  restartPolicy: Always
+```
+
+`ymlgen edn --template pod.yaml` will produce:
+
+```clojure
+[{:apiVersion "v1",
+  :kind "Pod",
+  :metadata {:name "dnsutils", :namespace "default"},
+  :spec
+  {:containers
+   [{:name "dnsutils",
+     :image "k8s.gcr.io/e2e-test-images/jessie-dnsutils:1.3",
+     :command ["sleep" "3600"],
+     :imagePullPolicy "ifNotPresent"}],
+   :restartPolicy "Always"}}]
+```

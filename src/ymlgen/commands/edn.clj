@@ -3,6 +3,12 @@
             [clojure.java.io :as io]
             [clojure.pprint :as pprint]))
 
+(extend-protocol yaml/YAMLCodec
+  java.util.ArrayList
+  (decode [data keywords]
+    (mapv #(yaml/decode % keywords) data))
+  )
+
 (defn parse-string-all
   [^String string & {:keys [unsafe mark keywords max-aliases-for-collections allow-recursive-keys allow-duplicate-keys] :or {keywords true}}]
   (for [v (.loadAll (yaml/make-yaml :unsafe unsafe
@@ -17,7 +23,7 @@
 (defn yaml->edn
   "Converts a yaml string to edn"
   [yaml-string]
-  (parse-string-all yaml-string :keywords true))
+  (vec (parse-string-all yaml-string :keywords true)))
 
 (defn gen-edn
   "Generates edn from a yaml file"

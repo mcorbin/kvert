@@ -10,7 +10,8 @@
   (is (= [{:foo "bar" :test 1} {:a true}] (edn/yaml->edn "---\nfoo: bar\ntest: 1\n---\na: true"))))
 
 (deftest gen-edn-test
-  (is (= [{:foo "bar"}]
+  (is (= [{:foo "bar"
+           :list [1 2 3]}]
          (edn/gen-edn {:template-path (.getPath (io/resource "yaml/f1.yaml"))})))
   (is (= [{:foo "bar"}
           {:test {:bar "baz" :bool true :int 3}}]
