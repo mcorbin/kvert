@@ -6,6 +6,7 @@
   :dependencies [[aero "1.1.6"]
                  [clj-commons/clj-yaml "0.7.0"]
                  [org.clojure/clojure "1.10.3"]
+                 [org.clojure/data.json "2.4.0"]
                  [org.clojure/tools.cli "1.0.206"]]
   :main ^:skip-aot ymlgen.core
   :target-path "target/%s"
