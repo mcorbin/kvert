@@ -7,12 +7,17 @@ It supports including parts of definitions into other ones, variables, generatin
 The tool leverages the [EDN](https://github.com/edn-format/edn) format and the [Aero](https://github.com/juxt/aero) library.
 
 Why `ymlgen` ? It's simple, powerful and extensible.
+I think neither templating or using YAML to generate more YAML are good solutions to manage Kubernetes resources and that's why I built this tool.
 
 ## Install
 
-For Linux (x86-64), download the `ymlgen` binary and put it in your PATH. This binary is built using [GraalVM](https://www.graalvm.org/) so more targets may be added soon (help welcome).
+For Linux (x86-64), download the `ymlgen` binary from the [release page](https://github.com/mcorbin/ymlgen/releases) and put it in your PATH. This binary is built using [GraalVM](https://www.graalvm.org/), more targets may be added soon (help welcome).
 
 You can alternatively download the `jar` file and then run it with `java -jar ymlgen.jar` (Java 17 needed).
+
+A docker image is also provided. Note that this image uses `java` as well so executing it is a bit slower than the static binary built with GraalVM.
+
+All example described below can be done using the Docker image by executing in the directory containing your templates `docker run -v $(pwd):/data mcorbin/ymlgen:v0.1.0 <command>`. The files will be availables in `/data`.
 
 ## Quick start
 
@@ -21,6 +26,7 @@ You can alternatively download the `jar` file and then run it with `java -jar ym
 Once `ymlgen` installed, you are ready to use it. Let's for example generate a yaml file from a simple EDN definition. Put in `pod.edn` this content:
 
 ```clojure
+;; this is a comment
 {:apiVersion "v1"
  :kind "Pod"
  :metadata {:name "dnsutils"

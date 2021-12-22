@@ -48,4 +48,5 @@
   (let [result (gen-yaml config)]
     (if output-path
       (spit output-path result)
-      (println result))))
+      (do (print result)
+          (flush)))))

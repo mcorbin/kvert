@@ -9,8 +9,10 @@ lein test
 git add .
 git commit -m "release ${tag}"
 git tag -a "${tag}" -m "release ${tag}"
-lein uberjar
+docker build -t mcorbin/ymlgen:${tag} .
+docker push mcorbin/ymlgen:${tag}
 
+lein uberjar
 native-image --report-unsupported-elements-at-runtime \
              --initialize-at-build-time \
              --no-server \
