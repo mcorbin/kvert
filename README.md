@@ -76,7 +76,7 @@ name: yaml-file-1
 name: yaml-file-2
 ```
 
-### Customisations
+### Customizations
 
 EDN supports `readers`, which can be used to extend it. Let's now put in `pod.edn` this content:
 
@@ -133,7 +133,7 @@ spec:
   restartPolicy: Always
 ```
 
-Thank to the readers we are able to customise our manifest. We could for example use variables and the profile to have variation between environment, kubernetes clusters...
+Thank to the readers we are able to customize our manifest. We could for example use variables and the profile to have variation between environment, kubernetes clusters...
 
 ## Profile
 
