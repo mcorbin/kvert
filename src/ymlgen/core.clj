@@ -1,24 +1,17 @@
 (ns ymlgen.core
-  (:require [clojure.java.io :as io]
-            [clojure.string :as string]
+  (:require [clojure.string :as string]
             [clojure.tools.cli :as cli]
             [ymlgen.commands.edn :as edn-cmd]
             [ymlgen.commands.json :as json-cmd]
-            [ymlgen.commands.yaml :as yaml-cmd])
+            [ymlgen.commands.yaml :as yaml-cmd]
+            [ymlgen.spec :as spec])
   (:gen-class))
-
-(defn file?
-  "Verifies if the provided path is a file"
-  [path]
-  (let [file (io/file path)]
-    (and (.exists file)
-         (.isFile file))))
 
 (def cli-options
   [["-t" "--template TEMPLATE-PATH" "Path to the template file"
-    :validate [file? "Should be a path to a template file"]]
+    :validate [spec/file? "Should be a path to a template file"]]
    ["-c" "--config CONFIGURATION-PATH" "Path to the configuration file for the yaml and json commands (optional)"
-    :validate [file? "Should be a path to a configuration file"]]
+    :validate [spec/file? "Should be a path to a configuration file"]]
    ["-o" "--output OUTPUT-PATH" "Path to the output file (optional)"]
    ["-h" "--help"]])
 

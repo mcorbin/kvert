@@ -1,7 +1,9 @@
 (ns ymlgen.commands.yaml
   (:require [ymlgen.edn :as edn]
             ymlgen.readers
+            [ymlgen.spec :as spec]
             [clj-yaml.core :as yaml]
+            [clojure.spec.alpha :as s]
             [clojure.string :as string]))
 
 (defn edn->yaml
@@ -27,11 +29,15 @@
   The configuration will be read from the `config-path`. The profile will also
   be read from the environment variable if needed."
   [config-path]
-  (let [profile (get-env-profile)]
-    (merge
-     (cond-> {}
-       profile (assoc :profile profile))
-     (edn/read-edn-file config-path {}))))
+  (let [profile (get-env-profile)
+        result (merge
+                (cond-> {}
+                  profile (assoc :profile profile))
+                (edn/read-edn-file config-path {}))]
+    (if-not (s/valid? ::spec/config result)
+      (throw (ex-info "Invalid configuration file format"
+                      {}))
+      result)))
 
 (defn gen-yaml
   "Creates yaml from a template and a configuration path"
