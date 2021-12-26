@@ -34,7 +34,11 @@
                                        set
                                        count)))))
 
+(s/def :include/repository ::ne-string)
+
 (s/def ::config (s/keys :opt-un [::variables ::profile ::repositories]))
 
-(s/def ::include (s/keys :req-un [::path]
-                         :opt-un [::variables ::profile]))
+(s/def ::include (s/and (s/keys :req-un [::path]
+                                :opt-un [::variables
+                                         ::profile
+                                         :include/repository])))
