@@ -1,2 +1,2 @@
 {:l1 "l1"
- :l2 #ymlgen/var :var2}
+ :l2 #kvert/var :var2}

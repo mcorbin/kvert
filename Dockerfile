@@ -9,12 +9,12 @@ RUN lein uberjar
 
 from openjdk:17
 
-RUN groupadd -r ymlgen && useradd -r -s /bin/false -g ymlgen ymlgen
+RUN groupadd -r kvert && useradd -r -s /bin/false -g kvert kvert
 RUN mkdir /app
-COPY --from=build-env /app/target/uberjar/ymlgen-*-standalone.jar /app/ymlgen.jar
+COPY --from=build-env /app/target/uberjar/kvert-*-standalone.jar /app/kvert.jar
 
-RUN chown -R ymlgen:ymlgen /app
+RUN chown -R kvert:kvert /app
 
-user ymlgen
+user kvert
 
-ENTRYPOINT ["java", "-jar", "/app/ymlgen.jar"]
+ENTRYPOINT ["java", "-jar", "/app/kvert.jar"]

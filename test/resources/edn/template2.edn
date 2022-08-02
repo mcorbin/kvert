@@ -1,2 +1,2 @@
-[{:foo #ymlgen/include {:path "inc1.edn"
+[{:foo #kvert/include {:path "inc1.edn"
                         :variables {:test2 "t2"}}}]

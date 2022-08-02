@@ -1,10 +1,10 @@
-(ns ymlgen.core
+(ns kvert.core
   (:require [clojure.string :as string]
             [clojure.tools.cli :as cli]
-            [ymlgen.commands.edn :as edn-cmd]
-            [ymlgen.commands.json :as json-cmd]
-            [ymlgen.commands.yaml :as yaml-cmd]
-            [ymlgen.spec :as spec])
+            [kvert.commands.edn :as edn-cmd]
+            [kvert.commands.json :as json-cmd]
+            [kvert.commands.yaml :as yaml-cmd]
+            [kvert.spec :as spec])
   (:gen-class))
 
 (def cli-options
@@ -27,9 +27,9 @@
                "edn: generate edn from a yaml file\n"
                "\n"
                "Examples:\n\n"
-               "ymlgen yaml -t pod.edn -c config.edn -o result.yaml\n"
-               "ymlgen json -t pod.edn -c config.edn -o result.json\n"
-               "ymlgen edn -t file.yaml -o result.edn\n"
+               "kvert yaml -t pod.edn -c config.edn -o result.yaml\n"
+               "kvert json -t pod.edn -c config.edn -o result.json\n"
+               "kvert edn -t file.yaml -o result.edn\n"
                "\n"))
 
 (defn -main

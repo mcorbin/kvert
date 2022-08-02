@@ -1,7 +1,7 @@
-(ns ymlgen.commands.json
+(ns kvert.commands.json
   (:require [clojure.data.json :as json]
-            [ymlgen.commands.yaml :as yaml]
-            [ymlgen.edn :as edn]))
+            [kvert.commands.yaml :as yaml]
+            [kvert.edn :as edn]))
 
 (defn gen-json
   "Creates yaml from a template and a configuration path"

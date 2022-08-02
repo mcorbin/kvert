@@ -1,2 +1,2 @@
-{:foo #ymlgen/var :var1
- :bar #ymlgen/var :test2}
+{:foo #kvert/var :var1
+ :bar #kvert/var :test2}

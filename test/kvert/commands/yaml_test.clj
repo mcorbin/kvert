@@ -1,7 +1,7 @@
-(ns ymlgen.commands.yaml-test
+(ns kvert.commands.yaml-test
   (:require [clojure.java.io :as io]
             [clojure.test :refer :all]
-            [ymlgen.commands.yaml :as yaml]))
+            [kvert.commands.yaml :as yaml]))
 
 (deftest edn->yaml-test
   (is (= "---\n{}\n" (yaml/edn->yaml {})))

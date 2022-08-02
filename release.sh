@@ -11,14 +11,14 @@ lein test
 git add .
 git commit -m "release ${tag}"
 git tag -a "${tag}" -m "release ${tag}"
-docker build -t mcorbin/ymlgen:${tag} .
-docker push mcorbin/ymlgen:${tag}
+docker build -t mcorbin/kvert:${tag} .
+docker push mcorbin/kvert:${tag}
 
 lein uberjar
 native-image --report-unsupported-elements-at-runtime \
              --initialize-at-build-time \
              --no-server \
-             -jar ./target/uberjar/ymlgen-*-standalone.jar \
-             -H:Name=./target/ymlgen-${tag}
+             -jar ./target/uberjar/kvert-*-standalone.jar \
+             -H:Name=./target/kvert-${tag}
 git push --tags
 git push

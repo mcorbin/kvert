@@ -1,7 +1,7 @@
-(ns ymlgen.commands.edn-test
+(ns kvert.commands.edn-test
   (:require [clojure.java.io :as io]
             [clojure.test :refer :all]
-            [ymlgen.commands.edn :as edn]))
+            [kvert.commands.edn :as edn]))
 
 (deftest yaml->edn-test
   (is (= [] (edn/yaml->edn "")))

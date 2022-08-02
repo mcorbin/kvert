@@ -1,6 +1,6 @@
-(defproject ymlgen "0.2.0"
+(defproject kvert "0.2.0"
   :description "generate yaml files from edn"
-  :url "https://github.com/mcorbin/ymlgen"
+  :url "https://github.com/mcorbin/kvert"
   :license {:name "EPL-2.0"
             :url "https://www.eclipse.org/legal/epl-2.0/"}
   :dependencies [[aero "1.1.6"]
@@ -8,7 +8,7 @@
                  [org.clojure/clojure "1.10.3"]
                  [org.clojure/data.json "2.4.0"]
                  [org.clojure/tools.cli "1.0.206"]]
-  :main ^:skip-aot ymlgen.core
+  :main ^:skip-aot kvert.core
   :target-path "target/%s"
   :profiles {:dev {:resource-paths ["resources" "test/resources" "gen-resources"]
                    :injections [(require 'pjstadig.humane-test-output)

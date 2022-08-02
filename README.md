@@ -1,29 +1,29 @@
-# ymlgen: a powerful tool to generate YAML files
+# kvert: a powerful tool to generate YAML files
 
-`ymlgen` lets you generate yaml files in a declarative way. You can for example use it to manage your Kubernetes manifests.
+`kvert` lets you generate yaml files in a declarative way. You can for example use it to manage your Kubernetes manifests.
 
 It supports including parts of definitions into other ones, variables, generating files with a different shape based on a `profile`, reading values from environment variables... All of this allows you to manage your YAML files in an effective way.
 
 The tool leverages the [EDN](https://github.com/edn-format/edn) format and the [Aero](https://github.com/juxt/aero) library.
 
-Why `ymlgen` ? It's simple, powerful and extensible.
+Why `kvert` ? It's simple, powerful and extensible.
 I think neither templating or using YAML to generate more YAML are good solutions to manage Kubernetes resources and that's why I built this tool.
 
 ## Install
 
-For Linux (x86-64), download the `ymlgen` binary from the [release page](https://github.com/mcorbin/ymlgen/releases) and put it in your PATH. This binary is built using [GraalVM](https://www.graalvm.org/), more targets may be added soon (help welcome).
+For Linux (x86-64), download the `kvert` binary from the [release page](https://github.com/mcorbin/kvert/releases) and put it in your PATH. This binary is built using [GraalVM](https://www.graalvm.org/), more targets may be added soon (help welcome).
 
-You can alternatively download the `jar` file and then run it with `java -jar ymlgen.jar` (Java 17 needed).
+You can alternatively download the `jar` file and then run it with `java -jar kvert.jar` (Java 17 needed).
 
 A docker image is also provided. Note that this image uses `java` as well so executing it is a bit slower than the static binary built with GraalVM.
 
-All example described below can be done using the Docker image by executing in the directory containing your templates `docker run -v $(pwd):/data mcorbin/ymlgen:v0.2.0 <command>`. The files will be availables in `/data`. Example: `docker run -v $(pwd):/data mcorbin/ymlgen:v0.2.0 yaml -t /data/example.edn`.
+All example described below can be done using the Docker image by executing in the directory containing your templates `docker run -v $(pwd):/data mcorbin/kvert:v0.2.0 <command>`. The files will be availables in `/data`. Example: `docker run -v $(pwd):/data mcorbin/kvert:v0.2.0 yaml -t /data/example.edn`.
 
 ## Quick start
 
 ### Simple EDN example
 
-Once `ymlgen` installed, you are ready to use it. Let's for example generate a yaml file from a simple EDN definition. Put in `pod.edn` this content:
+Once `kvert` installed, you are ready to use it. Let's for example generate a yaml file from a simple EDN definition. Put in `pod.edn` this content:
 
 ```clojure
 ;; this is a comment
@@ -38,7 +38,7 @@ Once `ymlgen` installed, you are ready to use it. Let's for example generate a y
         :restartPolicy "Always"}}
 ```
 
-Now run `ymlgen yaml --template pod.edn`:
+Now run `kvert yaml --template pod.edn`:
 
 ```yaml
 ---
@@ -67,7 +67,7 @@ As you can see, we can easily translate EDN to YAML. You can define multiple YAM
  {:name "yaml-file-2"}]
 ```
 
-`ymlgen` will output:
+`kvert` will output:
 
 ```yaml
 ---
@@ -84,9 +84,9 @@ EDN supports `readers`, which can be used to extend it. Let's now put in `pod.ed
 {:apiVersion "v1"
  :kind "Pod"
  :metadata {:name "dnsutils"
-            :namespace #ymlgen/var :namespace}
+            :namespace #kvert/var :namespace}
  :spec {:containers [{:name "dnsutils"
-                      :image #join ["k8s.gcr.io/e2e-test-images/jessie-dnsutils:" #ymlgen/var :container-version]
+                      :image #join ["k8s.gcr.io/e2e-test-images/jessie-dnsutils:" #kvert/var :container-version]
                       :command ["sleep" #or [#env SLEEP_DURATION 3600]]
                       :imagePullPolicy #profile {:production "ifNotPresent"
                                                  :default "Always"}}]
@@ -95,11 +95,11 @@ EDN supports `readers`, which can be used to extend it. Let's now put in `pod.ed
 
 As you an see, we use a few readers (which start with `#`) in this file:
 
-- `#ymlgen/var` which will replace the next keyword (`:namespace` for example here) with a variable value
+- `#kvert/var` which will replace the next keyword (`:namespace` for example here) with a variable value
 - `#join` which will concatenate several values together
 - `#or` which allows you to define default values
 - `#env` to read values from environment variables
-- `#profile` which create a switch based on the value on the profile you used to run `ymlgen` (more on that later). This reader also supports default values in `:default`
+- `#profile` which create a switch based on the value on the profile you used to run `kvert` (more on that later). This reader also supports default values in `:default`
 
 Readers can be combined together, like in `["sleep" #or [#env SLEEP_DURATION 3600]]` in this example which will first read the SLEEP_DURATION environment variable and fallback to `3600` if it's not defined.
 
@@ -111,9 +111,9 @@ Let's create a new file named `config.edn`:
  :profile :production}
 ```
 
-This file defines variables (referenced by `#ymlgen/var` in the `pod.edn` file) and the profile (`:production`).
+This file defines variables (referenced by `#kvert/var` in the `pod.edn` file) and the profile (`:production`).
 
-Launch `ymlgen yaml --template pod.edn -c config.edn`, the output is:
+Launch `kvert yaml --template pod.edn -c config.edn`, the output is:
 
 ```yaml
 ---
@@ -137,11 +137,11 @@ Thank to the readers we are able to customize our manifest. We could for example
 
 ## Profile
 
-We configured in this example the profile into the `config.edn` file. You can also set it by configuring the `PROFILE` environment variable when running `ymlgen`.
+We configured in this example the profile into the `config.edn` file. You can also set it by configuring the `PROFILE` environment variable when running `kvert`.
 
 ## More readers
 
-[Aero](https://github.com/juxt/aero), the library used by `ymlgen` to parse EDN files supports tons of readers out of the box. You can find them in the library [documentation](https://github.com/juxt/aero#tag-literals). Here are some interesting ones:
+[Aero](https://github.com/juxt/aero), the library used by `kvert` to parse EDN files supports tons of readers out of the box. You can find them in the library [documentation](https://github.com/juxt/aero#tag-literals). Here are some interesting ones:
 
 **#include**
 
@@ -160,7 +160,7 @@ For example, the `#include` reader allows you to include an EDN file into anothe
  :environment "prod"}
 ```
 
-The output of `ymlgen yaml --template example.edn` will be:
+The output of `kvert yaml --template example.edn` will be:
 
 ```yaml
 ---
@@ -172,14 +172,14 @@ metadata:
     environment: prod
 ```
 
-**#ymlgen/include**
+**#kvert/include**
 
-THe `#ymlgen/include` reader works exactly like `#include` but allows you to pass additional variables and configure another profile to the included file:
+THe `#kvert/include` reader works exactly like `#include` but allows you to pass additional variables and configure another profile to the included file:
 
 ```clojure
 {:apiVersion "v1"
  :kind "Pod"
- :metadata {:labels #ymlgen/include {:path "labels.edn"
+ :metadata {:labels #kvert/include {:path "labels.edn"
                                      :variables {:foo "bar"}
                                      :profile :prod}}}
  ```
@@ -197,7 +197,7 @@ Another cool one is `#ref`, let's modify our `example.edn` with:
             :labels {:name #ref [:metadata :name]}}}
 ```
 
-This file will produce using `ymlgen yaml --template example.edn`:
+This file will produce using `kvert yaml --template example.edn`:
 
 ```yaml
 ---
@@ -215,7 +215,7 @@ Don't hesitate to check the Aero [documentation](https://github.com/juxt/aero#ta
 
 ## Generate EDN from YAML
 
-You can use `ymlgen` to convert an existing YAML file to EDN. This can help you to get started with the tool by using existing YAML files. An example with this file named `pod.yml`:
+You can use `kvert` to convert an existing YAML file to EDN. This can help you to get started with the tool by using existing YAML files. An example with this file named `pod.yml`:
 
 ```yaml
 ---
@@ -235,7 +235,7 @@ spec:
   restartPolicy: Always
 ```
 
-`ymlgen edn --template pod.yaml` will produce:
+`kvert edn --template pod.yaml` will produce:
 
 ```clojure
 [{:apiVersion "v1",

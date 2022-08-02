@@ -1,4 +1,4 @@
-(ns ymlgen.spec
+(ns kvert.spec
   (:require [clojure.java.io :as io]
             [clojure.spec.alpha :as s]
             [clojure.string :as string]))
@@ -21,10 +21,17 @@
 (s/def ::cert file?)
 (s/def ::name ::ne-string)
 
-(s/def ::repository (s/keys :req-un [::name ::url]
-                            :opt-un [::cacert
-                                     ::key
-                                     ::cert]))
+(s/def ::repository (s/and (s/keys :req-un [::name ::url]
+                                   :opt-un [::cacert
+                                            ::key
+                                            ::cert])
+                           (fn [repo]
+                             (or (and (nil? (:key repo))
+                                      (nil? (:cert repo))
+                                      (nil? (:cacert repo)))
+                                 (and (string? (:key repo))
+                                      (string? (:cert repo))
+                                      (string? (:cacert repo)))))))
 
 (s/def ::repositories (s/and (s/coll-of ::repository)
                              (fn [repositories]

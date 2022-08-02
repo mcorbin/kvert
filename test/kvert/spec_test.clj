@@ -1,7 +1,7 @@
-(ns ymlgen.spec-test
+(ns kvert.spec-test
   (:require [clojure.spec.alpha :as s]
             [clojure.test :refer :all]
-            [ymlgen.spec :as spec]))
+            [kvert.spec :as spec]))
 
 (deftest repositories-test
   (is (s/valid? ::spec/repositories []))

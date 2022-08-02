@@ -1,7 +1,7 @@
-(ns ymlgen.commands.yaml
-  (:require [ymlgen.edn :as edn]
-            ymlgen.readers
-            [ymlgen.spec :as spec]
+(ns kvert.commands.yaml
+  (:require [kvert.edn :as edn]
+            kvert.readers
+            [kvert.spec :as spec]
             [clj-yaml.core :as yaml]
             [clojure.spec.alpha :as s]
             [clojure.string :as string]))

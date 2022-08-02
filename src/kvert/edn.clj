@@ -1,4 +1,4 @@
-(ns ymlgen.edn
+(ns kvert.edn
   (:require [aero.core :as aero]))
 
 (defn read-edn-file
