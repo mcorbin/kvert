@@ -1,4 +1,4 @@
-(defproject kvert "0.2.0"
+(defproject kvert "0.3.0"
   :description "generate yaml files from edn"
   :url "https://github.com/mcorbin/kvert"
   :license {:name "EPL-2.0"
