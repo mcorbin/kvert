@@ -2,7 +2,7 @@
 
 set -e
 
-export GRAALVM_HOME=/opt/graalvm-ce-java17-21.3.0/
+export GRAALVM_HOME=/opt/graalvm-ce-java17-22.2.0/
 export PATH=$GRAALVM_HOME/bin:$PATH
 
 tag=$1
